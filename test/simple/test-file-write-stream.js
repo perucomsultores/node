@@ -27,7 +27,7 @@ var fs = require('fs');
 var fn = path.join(common.tmpDir, 'write.txt');
 var file = fs.createWriteStream(fn, {
       lowWaterMark: 0,
-      highWaterMark: 10
+      highWaterMark: 0
     });
 
 var EXPECTED = '012345678910';
@@ -74,7 +74,9 @@ file
 
 for (var i = 0; i < 11; i++) {
   (function(i) {
-    file.write('' + i);
+    console.error('write %d', i);
+    var ret = file.write('' + i);
+    console.error('ret=%j', ret);
   })(i);
 }
 
